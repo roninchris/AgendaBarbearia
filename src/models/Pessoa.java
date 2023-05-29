@@ -4,10 +4,10 @@ public class Pessoa {
     private String  nome;
     private String email;
     private String senha;
-    private int telefone;
+    private String telefone;
 
 
-    public Pessoa(String nome, int telefone, String email, String senha) {
+    public Pessoa(String nome, String email, String senha, String telefone) {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
@@ -39,11 +39,11 @@ public class Pessoa {
         this.senha = senha;
     }
 
-    public int getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(int telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 }

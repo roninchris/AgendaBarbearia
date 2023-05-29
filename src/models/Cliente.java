@@ -1,7 +1,12 @@
 package models;
 
+import java.util.ArrayList;
+
 public class Cliente extends Pessoa{
-    public Cliente(String nome, int telefone, String email, String senha) {
-        super(nome, telefone, email, senha);
+    private ArrayList<Cliente> clientes = new ArrayList<Cliente>();
+    public Cliente(String nome, String email, String senha, String telefone) {
+        super(nome, email, senha, telefone);
+
+        clientes.add(this);
     }
 }
