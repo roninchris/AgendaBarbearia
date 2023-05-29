@@ -73,9 +73,7 @@ public class CadastroClienteView{
         new CadastroClienteController(nome, email, senha, telefone);
     }
 
-    public void cadastrarBarbeiro( String nome, String email, String senha, String telefone){
-        new CadastroBarbeiroController(nome, email, senha, telefone);
-    }
+
 
     public JPanel getPanel() {
         return cadastroClientePanel; // Retorna o painel atual (this é uma instância de JPanel)

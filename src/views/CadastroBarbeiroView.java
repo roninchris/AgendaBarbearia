@@ -1,9 +1,13 @@
 package views;
 
+import controllers.CadastroBarbeiroController;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class CadastroBarbeiroView{
+public class CadastroBarbeiroView {
     private JLabel emailLabel;
     private JLabel nomeLabel;
     private JLabel passwordLabel;
@@ -51,13 +55,24 @@ public class CadastroBarbeiroView{
         cadastroBarbeiroPanel.add(cadastrarButton);
         cadastroBarbeiroPanel.add(cancelarButton);
 
+        cadastrarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String nome = nomeInput.getText();
+                String email = emailInput.getText();
+                String senha = passwordInput.getText();
+                String telefone = telefoneInput.getText();
+
+                cadastrarBarbeiro(nome, email, senha, telefone);
+            }
+        });
+
     }
 
+    public void cadastrarBarbeiro (String nome, String email, String senha, String telefone){
+        new CadastroBarbeiroController(nome, email, senha, telefone);
+    }
 
-    public JPanel getPanel() {
-        return cadastroBarbeiroPanel; // Retorna o painel atual (this é uma instância de JPanel)
+    public JPanel getPanel () {
+        return cadastroBarbeiroPanel; // Retorna o painel atual (this é uma instância de JPanel)}
     }
 }
-
-
-
