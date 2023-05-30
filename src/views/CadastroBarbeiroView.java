@@ -1,6 +1,6 @@
 package views;
 
-import controllers.CadastroBarbeiroController;
+import controllers.Autenticacao;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,12 @@ public class CadastroBarbeiroView {
     private JButton cancelarButton;
     private JPanel cadastroBarbeiroPanel;
 
-    public CadastroBarbeiroView() {
+    private Autenticacao autenticacao;
+
+    public CadastroBarbeiroView(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+
+
         cadastroBarbeiroPanel = new JPanel();
         cadastroBarbeiroPanel.setLayout(new GridLayout(5, 2));
 
@@ -63,13 +68,19 @@ public class CadastroBarbeiroView {
                 String telefone = telefoneInput.getText();
 
                 cadastrarBarbeiro(nome, email, senha, telefone);
+
+                //Limpa os inputs
+                nomeInput.setText("");
+                emailInput.setText("");
+                passwordInput.setText("");
+                telefoneInput.setText("");
             }
         });
 
     }
 
     public void cadastrarBarbeiro (String nome, String email, String senha, String telefone){
-        new CadastroBarbeiroController(nome, email, senha, telefone);
+        autenticacao.cadastrarBarbeiro(nome, email, senha, telefone);
     }
 
     public JPanel getPanel () {

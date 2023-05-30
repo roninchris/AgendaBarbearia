@@ -1,7 +1,6 @@
 package views;
 
-import controllers.CadastroBarbeiroController;
-import controllers.CadastroClienteController;
+import controllers.Autenticacao;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +20,11 @@ public class CadastroClienteView{
     private JButton cancelarButton;
     private JPanel cadastroClientePanel;
 
-    public CadastroClienteView() {
+    private Autenticacao autenticacao;
+
+    public CadastroClienteView(Autenticacao autenticacao) {
+        this.autenticacao = autenticacao;
+
         cadastroClientePanel = new JPanel();
         cadastroClientePanel.setLayout(new GridLayout(5, 2));
 
@@ -65,12 +68,18 @@ public class CadastroClienteView{
                 String telefone = telefoneInput.getText();
 
                 cadastrarCliente(nome, email, senha, telefone);
+
+                nomeInput.setText("");
+                emailInput.setText("");
+                passwordInput.setText("");
+                telefoneInput.setText("");
+
             }
         });
     }
 
     public void cadastrarCliente( String nome, String email, String senha, String telefone){
-        new CadastroClienteController(nome, email, senha, telefone);
+        autenticacao.cadastrarCliente(nome, email, senha, telefone);
     }
 
 

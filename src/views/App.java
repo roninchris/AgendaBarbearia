@@ -1,5 +1,7 @@
 package views;
 
+import controllers.Autenticacao;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,12 +14,18 @@ public class App extends JFrame{
     private JPanel menuPrincipal;
     private JPanel currentPanel;
 
-    public App (){
+    private Autenticacao autenticacao;
+
+    public App (Autenticacao autenticacao){
+        //Autenticação será uma instância compartilhada por todo sistema
+        this.autenticacao = autenticacao;
+
+        menuPrincipal = new JPanel();
+
         loginButton = new JButton("Login");
         cadastrarBarbeiroButton = new JButton("Cadastrar Barbeiro");
         cadastrarClienteButton = new JButton("Cadastrar Cliente");
 
-        menuPrincipal = new JPanel();
         menuPrincipal.setLayout(new GridLayout(3, 1));
         menuPrincipal.add(loginButton);
         menuPrincipal.add(cadastrarBarbeiroButton);
@@ -31,11 +39,10 @@ public class App extends JFrame{
         setLocationRelativeTo(null);
         setVisible(true);
 
-
         // Ação do botão Cadastrar Barbeiro
         cadastrarBarbeiroButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroBarbeiroView cadastroBarbeiroView = new CadastroBarbeiroView();
+                CadastroBarbeiroView cadastroBarbeiroView = new CadastroBarbeiroView(autenticacao);
                 setPanel(cadastroBarbeiroView.getPanel());
             }
         });
@@ -43,7 +50,7 @@ public class App extends JFrame{
         // Ação do botão Cadastrar Cliente
         cadastrarClienteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroClienteView cadastroClienteView = new CadastroClienteView();
+                CadastroClienteView cadastroClienteView = new CadastroClienteView(autenticacao);
                 System.out.println(cadastroClienteView.getPanel());
                 setPanel(cadastroClienteView.getPanel());
             }
@@ -51,6 +58,8 @@ public class App extends JFrame{
 
     }
 
+    // Função responsável por mudar o panel, recebe um atributo do tipo panel e em seguida
+    // remove o panel atual do Frame e adiciona o Frame recebido como parâmetro
     private void setPanel(JPanel panel){
         if (currentPanel != null) {
             getContentPane().remove(currentPanel);
@@ -64,6 +73,7 @@ public class App extends JFrame{
 
 
     public static void main(String[] args) {
-        new App();
+        Autenticacao autenticacao = new Autenticacao();
+        new App(autenticacao);
     }
 }
