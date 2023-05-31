@@ -75,5 +75,6 @@ public class App extends JFrame{
     public static void main(String[] args) {
         Autenticacao autenticacao = new Autenticacao();
         new App(autenticacao);
+
     }
 }

@@ -6,6 +6,7 @@ public class Agenda {
     private ArrayList<Horario> horarios;
 
     public Agenda(ArrayList<Horario> horarios) {
+
         this.horarios = horarios;
     }
 }
