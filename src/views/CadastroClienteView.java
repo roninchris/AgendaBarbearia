@@ -1,93 +1,79 @@
 package views;
 
 import controllers.Autenticacao;
+import models.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CadastroClienteView{
-    private JLabel emailLabel;
-    private JLabel nomeLabel;
-    private JLabel passwordLabel;
-    private JLabel telefoneLabel;
-    private JTextField emailInput;
-    private JTextField nomeInput;
-    private JPasswordField passwordInput;
-    private JTextField telefoneInput;
-    private JButton cadastrarButton;
-    private JButton cancelarButton;
-    private JPanel cadastroClientePanel;
-
+public class CadastroClienteView {
+    private JPanel panel;
     private Autenticacao autenticacao;
+    private JFrame frame;
 
-    public CadastroClienteView(Autenticacao autenticacao) {
+    public CadastroClienteView(Autenticacao autenticacao, JFrame frame) {
         this.autenticacao = autenticacao;
+        this.frame = frame;
 
-        cadastroClientePanel = new JPanel();
-        cadastroClientePanel.setLayout(new GridLayout(5, 2));
+        panel = new JPanel();
+        panel.setLayout(new GridLayout(5, 2));
 
-        nomeLabel = new JLabel("Nome: ");
-        emailLabel = new JLabel("Email: ");
-        passwordLabel = new JLabel("Senha: ");
-        telefoneLabel = new JLabel("Telefone: ");
+        JLabel nameLabel = new JLabel("Nome:");
+        JTextField nameField = new JTextField();
 
-        nomeInput = new JTextField();
-        emailInput = new JTextField();
-        passwordInput = new JPasswordField();
-        telefoneInput = new JTextField();
+        JLabel emailLabel = new JLabel("E-mail:");
+        JTextField emailField = new JTextField();
 
-        cadastrarButton = new JButton("Cadastrar");
-        cancelarButton = new JButton("Cancelar");
+        JLabel passwordLabel = new JLabel("Senha:");
+        JPasswordField passwordField = new JPasswordField();
 
+        JLabel telefoneLabel = new JLabel("Telefone:");
+        JTextField telefoneField = new JTextField();
 
-        nomeInput.setMaximumSize(new Dimension(300, 120));
-        emailInput.setMaximumSize(new Dimension(300, 120));
-        passwordInput.setMaximumSize(new Dimension(300, 120));
-        telefoneInput.setMaximumSize(new Dimension(300, 120));
+        JButton cadastrarButton = new JButton("Cadastrar");
+        JButton cancelarButton = new JButton("Cancelar");
 
-        cadastroClientePanel.add(nomeLabel);
-        cadastroClientePanel.add(nomeInput);
-        cadastroClientePanel.add(emailLabel);
-        cadastroClientePanel.add(emailInput);
-        cadastroClientePanel.add(passwordLabel);
-        cadastroClientePanel.add(passwordInput);
-        cadastroClientePanel.add(telefoneLabel);
-        cadastroClientePanel.add(telefoneInput);
-
-        cadastroClientePanel.add(cadastrarButton);
-        cadastroClientePanel.add(cancelarButton);
-
-        // Ação do botão Cadastrar Cliente
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                String nome = nomeInput.getText();
-                String email = emailInput.getText();
-                String senha = passwordInput.getText();
-                String telefone = telefoneInput.getText();
+                String nome = nameField.getText();
+                String email = emailField.getText();
+                String senha = new String(passwordField.getPassword());
+                String telefone = telefoneField.getText();
 
-                cadastrarCliente(nome, email, senha, telefone);
+                Cliente cliente = new Cliente(nome, email, senha, telefone);
+                autenticacao.cadastrarCliente(cliente);
 
-                nomeInput.setText("");
-                emailInput.setText("");
-                passwordInput.setText("");
-                telefoneInput.setText("");
+                JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
 
+                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                frame.revalidate();
+                frame.repaint();
             }
         });
+
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        panel.add(nameLabel);
+        panel.add(nameField);
+        panel.add(emailLabel);
+        panel.add(emailField);
+        panel.add(passwordLabel);
+        panel.add(passwordField);
+        panel.add(telefoneLabel);
+        panel.add(telefoneField);
+        panel.add(cadastrarButton);
+        panel.add(cancelarButton);
     }
-
-    public void cadastrarCliente( String nome, String email, String senha, String telefone){
-        autenticacao.cadastrarCliente(nome, email, senha, telefone);
-    }
-
-
 
     public JPanel getPanel() {
-        return cadastroClientePanel; // Retorna o painel atual (this é uma instância de JPanel)
+        return panel;
     }
 }
-
-
-

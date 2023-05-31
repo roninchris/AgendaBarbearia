@@ -8,44 +8,48 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CadastroBarbeiroView {
+public class EdicaoBarbeiroView {
     private JPanel panel;
     private Autenticacao autenticacao;
+    private Barbeiro barbeiro;
     private JFrame frame;
 
-    public CadastroBarbeiroView(Autenticacao autenticacao, JFrame frame) {
+    public EdicaoBarbeiroView(Autenticacao autenticacao, Barbeiro barbeiro, JFrame frame) {
         this.autenticacao = autenticacao;
+        this.barbeiro = barbeiro;
         this.frame = frame;
 
         panel = new JPanel();
-        panel.setLayout(new GridLayout(5, 2));
+        panel.setLayout(new GridLayout(4, 2));
 
         JLabel nameLabel = new JLabel("Nome:");
-        JTextField nameField = new JTextField();
+        JTextField nameField = new JTextField(barbeiro.getNome());
 
         JLabel emailLabel = new JLabel("E-mail:");
-        JTextField emailField = new JTextField();
+        JTextField emailField = new JTextField(barbeiro.getEmail());
 
         JLabel passwordLabel = new JLabel("Senha:");
-        JPasswordField passwordField = new JPasswordField();
+        JPasswordField passwordField = new JPasswordField(barbeiro.getSenha());
 
         JLabel telefoneLabel = new JLabel("Telefone:");
-        JTextField telefoneField = new JTextField();
+        JTextField telefoneField = new JTextField(barbeiro.getTelefone());
 
-        JButton cadastrarButton = new JButton("Cadastrar");
+        JButton salvarButton = new JButton("Salvar");
         JButton cancelarButton = new JButton("Cancelar");
 
-        cadastrarButton.addActionListener(new ActionListener() {
+        salvarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String nome = nameField.getText();
                 String email = emailField.getText();
                 String senha = new String(passwordField.getPassword());
                 String telefone = telefoneField.getText();
 
-                Barbeiro barbeiro = new Barbeiro(nome, email, senha, telefone);
-                autenticacao.cadastrarBarbeiro(nome, email, senha, telefone);
+                barbeiro.setNome(nome);
+                barbeiro.setEmail(email);
+                barbeiro.setSenha(senha);
+                barbeiro.setTelefone(telefone);
 
-                JOptionPane.showMessageDialog(panel, "Barbeiro cadastrado com sucesso!");
+                JOptionPane.showMessageDialog(panel, "Dados do barbeiro atualizados com sucesso!");
 
                 frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
                 frame.revalidate();
@@ -69,7 +73,7 @@ public class CadastroBarbeiroView {
         panel.add(passwordField);
         panel.add(telefoneLabel);
         panel.add(telefoneField);
-        panel.add(cadastrarButton);
+        panel.add(salvarButton);
         panel.add(cancelarButton);
     }
 
