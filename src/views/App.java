@@ -7,17 +7,18 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class App extends JFrame{
+public class App extends JFrame {
     private JButton cadastrarClienteButton;
     private JButton loginButton;
     private JButton cadastrarBarbeiroButton;
+    private JButton voltarButton; // Botão para voltar ao menu principal
     private JPanel menuPrincipal;
     private JPanel currentPanel;
 
     private Autenticacao autenticacao;
 
-    public App (Autenticacao autenticacao){
-        //Autenticação será uma instância compartilhada por todo sistema
+    public App(Autenticacao autenticacao) {
+        // Autenticação será uma instância compartilhada por todo o sistema
         this.autenticacao = autenticacao;
 
         menuPrincipal = new JPanel();
@@ -42,7 +43,7 @@ public class App extends JFrame{
         // Ação do botão Cadastrar Barbeiro
         cadastrarBarbeiroButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroBarbeiroView cadastroBarbeiroView = new CadastroBarbeiroView(autenticacao);
+                CadastroBarbeiroView cadastroBarbeiroView = new CadastroBarbeiroView(autenticacao, currentPanel);
                 setPanel(cadastroBarbeiroView.getPanel());
             }
         });
@@ -50,17 +51,20 @@ public class App extends JFrame{
         // Ação do botão Cadastrar Cliente
         cadastrarClienteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                CadastroClienteView cadastroClienteView = new CadastroClienteView(autenticacao);
-                System.out.println(cadastroClienteView.getPanel());
+                CadastroClienteView cadastroClienteView = new CadastroClienteView(autenticacao, currentPanel);
                 setPanel(cadastroClienteView.getPanel());
             }
         });
 
+        // Ação do botão Login
+        loginButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Botão Login aqui
+            }
+        });
     }
 
-    // Função responsável por mudar o panel, recebe um atributo do tipo panel e em seguida
-    // remove o panel atual do Frame e adiciona o Frame recebido como parâmetro
-    private void setPanel(JPanel panel){
+    void setPanel(JPanel panel) {
         if (currentPanel != null) {
             getContentPane().remove(currentPanel);
         }
@@ -70,7 +74,6 @@ public class App extends JFrame{
         getContentPane().revalidate();
         getContentPane().repaint();
     }
-
 
     public static void main(String[] args) {
         Autenticacao autenticacao = new Autenticacao();

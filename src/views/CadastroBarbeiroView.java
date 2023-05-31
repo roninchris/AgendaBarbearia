@@ -21,13 +21,14 @@ public class CadastroBarbeiroView {
     private JPanel cadastroBarbeiroPanel;
 
     private Autenticacao autenticacao;
+    private JPanel previousPanel; // Referência ao painel anterior
 
-    public CadastroBarbeiroView(Autenticacao autenticacao) {
+    public CadastroBarbeiroView(Autenticacao autenticacao, JPanel previousPanel) {
         this.autenticacao = autenticacao;
-
+        this.previousPanel = previousPanel;
 
         cadastroBarbeiroPanel = new JPanel();
-        cadastroBarbeiroPanel.setLayout(new GridLayout(5, 2));
+        cadastroBarbeiroPanel.setLayout(new GridLayout(6, 2));
 
         nomeLabel = new JLabel("Nome: ");
         emailLabel = new JLabel("Email: ");
@@ -42,12 +43,6 @@ public class CadastroBarbeiroView {
         cadastrarButton = new JButton("Cadastrar");
         cancelarButton = new JButton("Cancelar");
 
-
-        nomeInput.setMaximumSize(new Dimension(300, 120));
-        emailInput.setMaximumSize(new Dimension(300, 120));
-        passwordInput.setMaximumSize(new Dimension(300, 120));
-        telefoneInput.setMaximumSize(new Dimension(300, 120));
-
         cadastroBarbeiroPanel.add(nomeLabel);
         cadastroBarbeiroPanel.add(nomeInput);
         cadastroBarbeiroPanel.add(emailLabel);
@@ -56,7 +51,6 @@ public class CadastroBarbeiroView {
         cadastroBarbeiroPanel.add(passwordInput);
         cadastroBarbeiroPanel.add(telefoneLabel);
         cadastroBarbeiroPanel.add(telefoneInput);
-
         cadastroBarbeiroPanel.add(cadastrarButton);
         cadastroBarbeiroPanel.add(cancelarButton);
 
@@ -64,26 +58,41 @@ public class CadastroBarbeiroView {
             public void actionPerformed(ActionEvent e) {
                 String nome = nomeInput.getText();
                 String email = emailInput.getText();
-                String senha = passwordInput.getText();
+                String senha = new String(passwordInput.getPassword());
                 String telefone = telefoneInput.getText();
 
-                cadastrarBarbeiro(nome, email, senha, telefone);
-
-                //Limpa os inputs
-                nomeInput.setText("");
-                emailInput.setText("");
-                passwordInput.setText("");
-                telefoneInput.setText("");
+                if (nome.isEmpty() || email.isEmpty() || senha.isEmpty() || telefone.isEmpty()) {
+                    JOptionPane.showMessageDialog(cadastroBarbeiroPanel, "Por favor, preencha todos os campos.");
+                } else {
+                    autenticacao.cadastrarBarbeiro(nome, email, senha, telefone);
+                    JOptionPane.showMessageDialog(cadastroBarbeiroPanel, "Barbeiro cadastrado com sucesso!");
+                    limparCampos();
+                }
             }
         });
 
+        cancelarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                voltarTelaAnterior();
+            }
+        });
     }
 
-    public void cadastrarBarbeiro (String nome, String email, String senha, String telefone){
-        autenticacao.cadastrarBarbeiro(nome, email, senha, telefone);
+    private void limparCampos() {
+        nomeInput.setText("");
+        emailInput.setText("");
+        passwordInput.setText("");
+        telefoneInput.setText("");
     }
 
-    public JPanel getPanel () {
-        return cadastroBarbeiroPanel; // Retorna o painel atual (this é uma instância de JPanel)}
+    private void voltarTelaAnterior() {
+        if (previousPanel != null) {
+            App app = (App) SwingUtilities.getWindowAncestor(cadastroBarbeiroPanel);
+            app.setPanel(previousPanel);
+        }
+    }
+
+    public JPanel getPanel() {
+        return cadastroBarbeiroPanel;
     }
 }
