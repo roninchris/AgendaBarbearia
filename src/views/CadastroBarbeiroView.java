@@ -39,17 +39,20 @@ public class CadastroBarbeiroView {
             public void actionPerformed(ActionEvent e) {
                 String nome = nameField.getText();
                 String email = emailField.getText();
-                String senha = new String(passwordField.getPassword());
+                String senha = passwordField.getText();
                 String telefone = telefoneField.getText();
 
-                Barbeiro barbeiro = new Barbeiro(nome, email, senha, telefone);
-                autenticacao.cadastrarBarbeiro(nome, email, senha, telefone);
+                if (autenticacao.cadastrarBarbeiro(nome, email, senha, telefone)){
+                    JOptionPane.showMessageDialog(panel, "Barbeiro cadastrado com sucesso!");
+                    frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                    frame.revalidate();
+                    frame.repaint();
+                }
+                else{
+                    JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email");
+                    emailField.setText("");
+                }
 
-                JOptionPane.showMessageDialog(panel, "Barbeiro cadastrado com sucesso!");
-
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
             }
         });
 

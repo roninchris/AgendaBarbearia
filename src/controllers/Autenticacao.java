@@ -14,6 +14,7 @@ public class Autenticacao {
         usuarios = new ArrayList<Pessoa>();
     }
 
+    //Verifica se o email já não é utilizado no sistema
     private boolean verificarCadastro(String email) {
         for (Pessoa usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
@@ -23,21 +24,25 @@ public class Autenticacao {
         return true;
     }
 
-    private void adicionarUsuario(Pessoa usuario) {
+    private boolean adicionarUsuario(Pessoa usuario) {
         if (verificarCadastro(usuario.getEmail())) {
             usuarios.add(usuario);
+            return true;
         } else {
-            System.out.println("Email já cadastrado no sistema.");
+            return false;
         }
     }
 
-    public void cadastrarCliente(Cliente cliente) {
-        adicionarUsuario(cliente);
+    public boolean cadastrarCliente(String nome, String email, String senha, String telefone) {
+        Cliente cliente = new Cliente(nome, email, senha, telefone);
+        return adicionarUsuario(cliente);
+
     }
 
-    public void cadastrarBarbeiro(String nome, String email, String senha, String telefone) {
+    public boolean cadastrarBarbeiro(String nome, String email, String senha, String telefone) {
         Barbeiro barbeiro = new Barbeiro(nome, email, senha, telefone);
-        adicionarUsuario(barbeiro);
+        return adicionarUsuario(barbeiro);
+
     }
 
     public boolean autenticar(String email, String senha) {

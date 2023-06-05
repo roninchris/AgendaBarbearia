@@ -1,35 +1,26 @@
 package models;
 
 import java.sql.Time;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Horario {
-    private Date data;
-    private Time hora;
+    private Date dataHora;
     private boolean disponibilidade;
     private Barbeiro barbeiro;
 
-    public Horario(Date data, Time hora, boolean disponibilidade, Barbeiro barbeiro) {
-        this.data = data;
-        this.hora = hora;
+    public Horario(Date dataHora, boolean disponibilidade, Barbeiro barbeiro) {
+        this.dataHora = dataHora;
         this.disponibilidade = disponibilidade;
         this.barbeiro = barbeiro;
     }
 
     public Date getData() {
-        return data;
+        return dataHora;
     }
 
-    public void setData(Date data) {
-        this.data = data;
-    }
-
-    public Time getHora() {
-        return hora;
-    }
-
-    public void setHora(Time hora) {
-        this.hora = hora;
+    public void setData(Date dataHora) {
+        this.dataHora = dataHora;
     }
 
     public boolean isDisponibilidade() {
@@ -40,11 +31,4 @@ public class Horario {
         this.disponibilidade = disponibilidade;
     }
 
-    public Barbeiro getBarbeiro() {
-        return barbeiro;
-    }
-
-    public void setBarbeiro(Barbeiro barbeiro) {
-        this.barbeiro = barbeiro;
-    }
 }

@@ -42,14 +42,18 @@ public class CadastroClienteView {
                 String senha = new String(passwordField.getPassword());
                 String telefone = telefoneField.getText();
 
-                Cliente cliente = new Cliente(nome, email, senha, telefone);
-                autenticacao.cadastrarCliente(cliente);
+                if(autenticacao.cadastrarCliente(nome, email, senha, telefone)){
+                    JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
+                    frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                    frame.revalidate();
+                    frame.repaint();
+                }
+                else {
+                    JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email!");
+                }
 
-                JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
 
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
+
             }
         });
 
