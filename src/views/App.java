@@ -32,7 +32,8 @@ public class App {
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                // Implemente a lógica de login
+                frame.setContentPane(new LoginView(autenticacao, frame).getPanel());
+                frame.revalidate();
             }
         });
 

@@ -88,6 +88,15 @@ public class Autenticacao {
         return barbeiros;
     }
 
+    public boolean verificarLogin(String email, String senha){
+        for (Pessoa pessoa : getUsuarios() ){
+            if(pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     private ArrayList<Pessoa> getUsuarios(){
         return usuarios;
     }

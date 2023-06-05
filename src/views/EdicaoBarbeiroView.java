@@ -20,7 +20,7 @@ public class EdicaoBarbeiroView {
         this.frame = frame;
 
         panel = new JPanel();
-        panel.setLayout(new GridLayout(4, 2));
+        panel.setLayout(new GridLayout(5, 2));
 
         JLabel nameLabel = new JLabel("Nome:");
         JTextField nameField = new JTextField(barbeiro.getNome());
