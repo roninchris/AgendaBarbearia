@@ -15,7 +15,7 @@ public class Autenticacao {
     }
 
     //Verifica se o email já não é utilizado no sistema
-    private boolean verificarCadastro(String email) {
+    private boolean verificarSeCadastroExiste(String email) {
         for (Pessoa usuario : usuarios) {
             if (usuario.getEmail().equals(email)) {
                 return false;
@@ -25,7 +25,7 @@ public class Autenticacao {
     }
 
     private boolean adicionarUsuario(Pessoa usuario) {
-        if (verificarCadastro(usuario.getEmail())) {
+        if (verificarSeCadastroExiste(usuario.getEmail())) {
             usuarios.add(usuario);
             return true;
         } else {
@@ -63,16 +63,32 @@ public class Autenticacao {
     }
 
     public ArrayList<Cliente> getClientes() {
-        // Obtenha a lista de clientes do banco de dados ou de algum sistema de armazenamento
+        ArrayList<Pessoa> usuarios = getUsuarios();
         ArrayList<Cliente> clientes = new ArrayList<>();
+
+        for(Pessoa pessoa : usuarios){
+            if(pessoa instanceof Cliente){
+                clientes.add((Cliente) pessoa);
+            }
+        }
         // Retorne a lista de clientes
         return clientes;
     }
 
     public ArrayList<Barbeiro> getBarbeiros() {
-        // Obtenha a lista de barbeiros do banco de dados ou de algum sistema de armazenamento
+        ArrayList<Pessoa> usuarios = getUsuarios();
         ArrayList<Barbeiro> barbeiros = new ArrayList<>();
+
+        for (Pessoa pessoa : usuarios) {
+            if(pessoa instanceof Barbeiro){
+                barbeiros.add((Barbeiro) pessoa);
+            }
+        }
         // Retorne a lista de barbeiros
         return barbeiros;
+    }
+
+    private ArrayList<Pessoa> getUsuarios(){
+        return usuarios;
     }
 }
