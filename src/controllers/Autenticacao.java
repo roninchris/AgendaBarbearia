@@ -12,7 +12,7 @@ public class Autenticacao {
 
     public Autenticacao() {
         // Inicializa a lista de usuários
-        usuarios = new ArrayList<Pessoa>();
+        this.usuarios = new ArrayList<Pessoa>();
     }
 
     //Verifica se o email já não é utilizado no sistema
@@ -44,15 +44,6 @@ public class Autenticacao {
         Barbeiro barbeiro = new Barbeiro(nome, email, senha, telefone);
         return adicionarUsuario(barbeiro);
 
-    }
-
-    public boolean autenticar(String email, String senha) {
-        for (Pessoa usuario : usuarios) {
-            if (usuario.getEmail().equals(email) && usuario.getSenha().equals(senha)) {
-                return true; // Autenticação bem-sucedida
-            }
-        }
-        return false; // Autenticação falhou
     }
 
     public void atualizarCliente(Cliente cliente) {
@@ -95,6 +86,23 @@ public class Autenticacao {
                 return true;
             }
         }
+        return false;
+    }
+
+    public boolean verificarTipoUsuarioCliente(String email) {
+        for (Pessoa pessoa : getUsuarios()) {
+            if (pessoa.getEmail().equals(email)) {
+                if (pessoa instanceof Barbeiro) {
+                    System.out.println("Usuário é um Barbeiro");
+                    return false;
+                } else if (pessoa instanceof Cliente) {
+                    System.out.println("Usuário é um Cliente");
+                    return true;
+                }
+
+            }
+        }
+
         return false;
     }
 
