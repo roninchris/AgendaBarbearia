@@ -1,6 +1,7 @@
 package views;
 
 import controllers.Autenticacao;
+import models.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
@@ -38,6 +39,17 @@ public class LoginView {
             public void actionPerformed(ActionEvent e) {
                 if(autenticacao.verificarLogin(emailField.getText(), new String(passwordField.getPassword()))){
                     JOptionPane.showMessageDialog(panel, "Login realizado com sucesso!");
+                    if(autenticacao.verificarTipoUsuarioCliente(emailField.getText())){
+                        frame.setContentPane(new ClienteLogadoView(autenticacao, frame).getPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                    }
+
+                    else {
+                        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame).getPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                    }
 
                 }
                 else {
