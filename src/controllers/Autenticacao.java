@@ -1,5 +1,6 @@
 package controllers;
 
+import models.Agenda;
 import models.Barbeiro;
 import models.Cliente;
 import models.Pessoa;

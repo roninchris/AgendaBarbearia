@@ -1,21 +1,19 @@
 package models;
 
-import java.util.ArrayList;
-
 public class Barbeiro extends Pessoa{
-    private ArrayList<Barbeiro> barbeiros = new ArrayList<Barbeiro>();
+    private Agenda agenda;
     public Barbeiro(String nome, String email, String senha, String telefone) {
 
         super(nome, email, senha, telefone);
+        this.agenda = new Agenda(this);
 
-        barbeiros.add(this);
     }
 
-    public ArrayList<Barbeiro> getBarbeiros() {
-        return barbeiros;
+    public Agenda getAgenda() {
+        return agenda;
     }
 
-    public void addBarbeiros(ArrayList<Barbeiro> barbeiros) {
-        this.barbeiros = barbeiros;
+    public void setAgenda(Agenda agenda) {
+        this.agenda = agenda;
     }
 }
