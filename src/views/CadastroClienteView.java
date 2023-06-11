@@ -42,18 +42,25 @@ public class CadastroClienteView {
                 String senha = new String(passwordField.getPassword());
                 String telefone = telefoneField.getText();
 
-                if(autenticacao.cadastrarCliente(nome, email, senha, telefone)){
-                    JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
-                    frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                    frame.revalidate();
-                    frame.repaint();
+                try {
+                    // Verificação do e-mail
+                    if (!isValidEmail(email)) {
+                        throw new EmailInvalidoException("E-mail inválido");
+                    }
+
+                    if (autenticacao.cadastrarCliente(nome, email, senha, telefone)) {
+                        JOptionPane.showMessageDialog(panel, "Cliente cadastrado com sucesso!");
+                        frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email!");
+                    }
+                } catch (EmailInvalidoException ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Ocorreu um erro ao cadastrar o cliente: " + ex.getMessage());
                 }
-                else {
-                    JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email!");
-                }
-
-
-
             }
         });
 
@@ -79,5 +86,17 @@ public class CadastroClienteView {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    private boolean isValidEmail(String email) {
+        // validando o e-mail
+        return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+        //retorna true se o email for valido e false se for invalido.
+    }
+
+    private class EmailInvalidoException extends Exception {
+        public EmailInvalidoException(String mensagem) {
+            super(mensagem);
+        }
     }
 }

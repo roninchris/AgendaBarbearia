@@ -42,15 +42,25 @@ public class CadastroBarbeiroView {
                 String senha = passwordField.getText();
                 String telefone = telefoneField.getText();
 
-                if (autenticacao.cadastrarBarbeiro(nome, email, senha, telefone)){
-                    JOptionPane.showMessageDialog(panel, "Barbeiro cadastrado com sucesso!");
-                    frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                    frame.revalidate();
-                    frame.repaint();
-                }
-                else{
-                    JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email");
-                    emailField.setText("");
+                try {
+                    // Verificação do e-mail
+                    if (!isValidEmail(email)) {
+                        throw new EmailInvalidoException("E-mail inválido");
+                    }
+
+                    if (autenticacao.cadastrarBarbeiro(nome, email, senha, telefone)) {
+                        JOptionPane.showMessageDialog(panel, "Barbeiro cadastrado com sucesso!");
+                        frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
+                        frame.revalidate();
+                        frame.repaint();
+                    } else {
+                        JOptionPane.showMessageDialog(panel, "Email já utilizado, tente com outro email");
+                        emailField.setText("");
+                    }
+                } catch (EmailInvalidoException ex) {
+                    JOptionPane.showMessageDialog(panel, ex.getMessage());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(panel, "Ocorreu um erro ao cadastrar o barbeiro: " + ex.getMessage());
                 }
 
             }
@@ -78,5 +88,17 @@ public class CadastroBarbeiroView {
 
     public JPanel getPanel() {
         return panel;
+    }
+
+    private boolean isValidEmail(String email) {
+        // validando o e-mail
+        return email.matches("[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}");
+        //retorna true se o email for valido e false se for invalido.
+    }
+
+    private class EmailInvalidoException extends Exception {
+        public EmailInvalidoException(String mensagem) {
+            super(mensagem);
+        }
     }
 }
