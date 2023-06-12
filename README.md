@@ -11,6 +11,8 @@ Aqui estão algumas das funcionalidades oferecidas pela aplicação da Barbearia
 
 - Cadastro de clientes: Os clientes podem se cadastrar na plataforma fornecendo suas informações pessoais, como nome, e-mail e telefone.
 
+- Cadastro de Clientes via TXT: Colocando os dados Nome, E-mail, Senha e Telefone em um arquivo TXT, na ordem certa, separado por vírgulas, é possível se cadastrar no sistema e logar.
+
 - Agendamento de cortes de cabelo: Os clientes cadastrados podem escolher o horário disponível desejado para agendar o corte de cabelo. O sistema verifica a disponibilidade e confirma o agendamento.
 
 - Cadastro de barbeiros: Os barbeiros podem se cadastrar fornecendo suas informações pessoais, como nome, e-mail e telefone.
