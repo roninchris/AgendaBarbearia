@@ -1,14 +1,14 @@
 package views;
 
 import controllers.Autenticacao;
-import models.Barbeiro;
-import models.Cliente;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class App {
     private JFrame frame;
@@ -23,11 +23,12 @@ public class App {
 
     private void initializeMenuPanel() {
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(3, 1));
+        menuPanel.setLayout(new GridLayout(4, 1));
 
         JButton loginButton = new JButton("Login");
         JButton cadastrarBarbeiroButton = new JButton("Cadastrar Barbeiro");
         JButton cadastrarClienteButton = new JButton("Cadastrar Cliente");
+        JButton cadastrarComTxtButton = new JButton("Cadastrar com TXT");
 
         loginButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -50,9 +51,19 @@ public class App {
             }
         });
 
+        cadastrarComTxtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(new CadastroComTxtView(autenticacao, frame).getPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
         menuPanel.add(loginButton);
         menuPanel.add(cadastrarBarbeiroButton);
         menuPanel.add(cadastrarClienteButton);
+        menuPanel.add(cadastrarComTxtButton);
+
         frame.setContentPane(menuPanel);
         frame.revalidate();
     }
@@ -70,6 +81,5 @@ public class App {
         frame.setVisible(true);
 
         new App(autenticacao, frame);
-
     }
 }
