@@ -27,7 +27,7 @@ public class AgendamentoBarbeiroView {
         constraints.gridy = 0;
         constraints.insets = new Insets(10, 10, 10, 10);
 
-        JLabel barbeiroLabel = new JLabel("Barbeiro:");
+        JLabel barbeiroLabel = new JLabel("Cliente:");
         panel.add(barbeiroLabel, constraints);
 
         constraints.gridy = 1;
