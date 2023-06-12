@@ -1,6 +1,8 @@
 package views;
 
 import controllers.Autenticacao;
+import models.Cliente;
+import models.Pessoa;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,10 +37,20 @@ public class ClienteLogadoView {
         editarDados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Vai para a tela de agendamento de horários
+                frame.setContentPane(new EdicaoClienteView(autenticacao, getClienteLogado(), frame).getPanel());
+                frame.revalidate();
+                frame.repaint();
             }
         });
+    }
 
+    private Cliente getClienteLogado() {
+        for (Pessoa pessoa : autenticacao.getClientes()) {
+            if (pessoa.getEmail().equals(autenticacao.getEmailUsuarioLogado())) {
+                return (Cliente) pessoa;
+            }
+        }
+        return null;
     }
 
     public JPanel getPanel() {

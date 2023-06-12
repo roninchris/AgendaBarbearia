@@ -9,10 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EdicaoBarbeiroView {
-    private JPanel panel;
     private Autenticacao autenticacao;
     private Barbeiro barbeiro;
     private JFrame frame;
+    private JPanel panel;
+    private JTextField nomeTextField;
+    private JTextField emailTextField;
+    private JTextField senhaTextField;
+    private JTextField telefoneTextField;
 
     public EdicaoBarbeiroView(Autenticacao autenticacao, Barbeiro barbeiro, JFrame frame) {
         this.autenticacao = autenticacao;
@@ -22,59 +26,64 @@ public class EdicaoBarbeiroView {
         panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2));
 
-        JLabel nameLabel = new JLabel("Nome:");
-        JTextField nameField = new JTextField(barbeiro.getNome());
-
-        JLabel emailLabel = new JLabel("E-mail:");
-        JTextField emailField = new JTextField(barbeiro.getEmail());
-
-        JLabel passwordLabel = new JLabel("Senha:");
-        JPasswordField passwordField = new JPasswordField(barbeiro.getSenha());
-
+        JLabel nomeLabel = new JLabel("Nome:");
+        JLabel emailLabel = new JLabel("Email:");
+        JLabel senhaLabel = new JLabel("Senha:");
         JLabel telefoneLabel = new JLabel("Telefone:");
-        JTextField telefoneField = new JTextField(barbeiro.getTelefone());
+
+        nomeTextField = new JTextField(barbeiro.getNome());
+        emailTextField = new JTextField(barbeiro.getEmail());
+        senhaTextField = new JTextField(barbeiro.getSenha());
+        telefoneTextField = new JTextField(barbeiro.getTelefone());
 
         JButton salvarButton = new JButton("Salvar");
         JButton cancelarButton = new JButton("Cancelar");
 
+        panel.add(nomeLabel);
+        panel.add(nomeTextField);
+        panel.add(emailLabel);
+        panel.add(emailTextField);
+        panel.add(senhaLabel);
+        panel.add(senhaTextField);
+        panel.add(telefoneLabel);
+        panel.add(telefoneTextField);
+        panel.add(salvarButton);
+        panel.add(cancelarButton);
+
         salvarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String nome = nameField.getText();
-                String email = emailField.getText();
-                String senha = new String(passwordField.getPassword());
-                String telefone = telefoneField.getText();
-
-                barbeiro.setNome(nome);
-                barbeiro.setEmail(email);
-                barbeiro.setSenha(senha);
-                barbeiro.setTelefone(telefone);
-
-                JOptionPane.showMessageDialog(panel, "Dados do barbeiro atualizados com sucesso!");
-
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
+                salvarDadosEditados();
+                voltarParaBarbeiroLogado();
             }
         });
 
         cancelarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
+                voltarParaBarbeiroLogado();
             }
         });
+    }
 
-        panel.add(nameLabel);
-        panel.add(nameField);
-        panel.add(emailLabel);
-        panel.add(emailField);
-        panel.add(passwordLabel);
-        panel.add(passwordField);
-        panel.add(telefoneLabel);
-        panel.add(telefoneField);
-        panel.add(salvarButton);
-        panel.add(cancelarButton);
+    private void salvarDadosEditados() {
+        String nome = nomeTextField.getText();
+        String email = emailTextField.getText();
+        String senha = senhaTextField.getText();
+        String telefone = telefoneTextField.getText();
+
+        barbeiro.setNome(nome);
+        barbeiro.setEmail(email);
+        barbeiro.setSenha(senha);
+        barbeiro.setTelefone(telefone);
+
+        autenticacao.atualizarBarbeiro(barbeiro);
+    }
+
+    private void voltarParaBarbeiroLogado() {
+        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame).getPanel());
+        frame.revalidate();
+        frame.repaint();
     }
 
     public JPanel getPanel() {

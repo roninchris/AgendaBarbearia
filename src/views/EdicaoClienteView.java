@@ -9,10 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class EdicaoClienteView {
-    private JPanel panel;
     private Autenticacao autenticacao;
     private Cliente cliente;
     private JFrame frame;
+    private JPanel panel;
+    private JTextField nomeTextField;
+    private JTextField emailTextField;
+    private JTextField senhaTextField;
+    private JTextField telefoneTextField;
 
     public EdicaoClienteView(Autenticacao autenticacao, Cliente cliente, JFrame frame) {
         this.autenticacao = autenticacao;
@@ -22,59 +26,64 @@ public class EdicaoClienteView {
         panel = new JPanel();
         panel.setLayout(new GridLayout(5, 2));
 
-        JLabel nameLabel = new JLabel("Nome:");
-        JTextField nameField = new JTextField(cliente.getNome());
-
-        JLabel emailLabel = new JLabel("E-mail:");
-        JTextField emailField = new JTextField(cliente.getEmail());
-
-        JLabel passwordLabel = new JLabel("Senha:");
-        JPasswordField passwordField = new JPasswordField(cliente.getSenha());
-
+        JLabel nomeLabel = new JLabel("Nome:");
+        JLabel emailLabel = new JLabel("Email:");
+        JLabel senhaLabel = new JLabel("Senha:");
         JLabel telefoneLabel = new JLabel("Telefone:");
-        JTextField telefoneField = new JTextField(cliente.getTelefone());
+
+        nomeTextField = new JTextField(cliente.getNome());
+        emailTextField = new JTextField(cliente.getEmail());
+        senhaTextField = new JTextField(cliente.getSenha());
+        telefoneTextField = new JTextField(cliente.getTelefone());
 
         JButton salvarButton = new JButton("Salvar");
         JButton cancelarButton = new JButton("Cancelar");
 
+        panel.add(nomeLabel);
+        panel.add(nomeTextField);
+        panel.add(emailLabel);
+        panel.add(emailTextField);
+        panel.add(senhaLabel);
+        panel.add(senhaTextField);
+        panel.add(telefoneLabel);
+        panel.add(telefoneTextField);
+        panel.add(salvarButton);
+        panel.add(cancelarButton);
+
         salvarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                String nome = nameField.getText();
-                String email = emailField.getText();
-                String senha = new String(passwordField.getPassword());
-                String telefone = telefoneField.getText();
-
-                cliente.setNome(nome);
-                cliente.setEmail(email);
-                cliente.setSenha(senha);
-                cliente.setTelefone(telefone);
-
-                JOptionPane.showMessageDialog(panel, "Dados do cliente atualizados com sucesso!");
-
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
+                salvarDadosEditados();
+                voltarParaClienteLogado();
             }
         });
 
         cancelarButton.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-                frame.revalidate();
-                frame.repaint();
+                voltarParaClienteLogado();
             }
         });
+    }
 
-        panel.add(nameLabel);
-        panel.add(nameField);
-        panel.add(emailLabel);
-        panel.add(emailField);
-        panel.add(passwordLabel);
-        panel.add(passwordField);
-        panel.add(telefoneLabel);
-        panel.add(telefoneField);
-        panel.add(salvarButton);
-        panel.add(cancelarButton);
+    private void salvarDadosEditados() {
+        String nome = nomeTextField.getText();
+        String email = emailTextField.getText();
+        String senha = senhaTextField.getText();
+        String telefone = telefoneTextField.getText();
+
+        cliente.setNome(nome);
+        cliente.setEmail(email);
+        cliente.setSenha(senha);
+        cliente.setTelefone(telefone);
+
+        autenticacao.atualizarCliente(cliente);
+    }
+
+    private void voltarParaClienteLogado() {
+        frame.setContentPane(new ClienteLogadoView(autenticacao, frame).getPanel());
+        frame.revalidate();
+        frame.repaint();
     }
 
     public JPanel getPanel() {

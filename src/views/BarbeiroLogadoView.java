@@ -1,5 +1,9 @@
 package views;
+
 import controllers.Autenticacao;
+import models.Barbeiro;
+import models.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -33,7 +37,9 @@ public class BarbeiroLogadoView {
         editarDados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Vai para a tela de agendamento de horários
+                frame.setContentPane(new EdicaoBarbeiroView(autenticacao, (Barbeiro) autenticacao.getUsuarioLogado(), frame).getPanel());
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
