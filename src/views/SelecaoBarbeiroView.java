@@ -44,16 +44,6 @@ public class SelecaoBarbeiroView {
 
         panel.add(barbeiroDropdown, constraints);
 
-        constraints.gridy = 2;
-        JLabel agendamentosLabel = new JLabel("Agendamentos:");
-        panel.add(agendamentosLabel, constraints);
-
-        constraints.gridy = 3;
-        agendamentosArea = new JTextArea();
-        agendamentosArea.setEditable(false);
-        JScrollPane scrollPane = new JScrollPane(agendamentosArea);
-        panel.add(scrollPane, constraints);
-
         constraints.gridy = 4;
         JButton selecionarButton = new JButton("Selecionar");
         panel.add(selecionarButton, constraints);
@@ -89,26 +79,6 @@ public class SelecaoBarbeiroView {
         return panel;
     }
 
-    private List<String> getClientesCadastrados() {
-        // Use aqui para obter os nomes dos clientes
-        List<String>clientes = new ArrayList<>();
-        // Exemplo de adição de nomes de barbeiros:
-        clientes.add("pedrin cabelo de foice");
-        return clientes;
-    }
 
-    private List<String> getAgendamentosBarbeiro(String barbeiro) {
-        //puxe os agendamentos aqui
-        List<String> agendamentos = new ArrayList<>();
-        // Exemplo de agendamentos:
-        agendamentos.add("Cliente 1 - Horário: 2023-06-12T10:00");
-        return agendamentos;
-    }
 
-    private void atualizarAgendamentos(List<String> agendamentos) {
-        agendamentosArea.setText("");
-        for (String agendamento : agendamentos) {
-            agendamentosArea.append(agendamento + "\n");
-        }
-    }
 }
