@@ -1,6 +1,5 @@
 package controllers;
 
-import models.Agenda;
 import models.Barbeiro;
 import models.Cliente;
 import models.Pessoa;
@@ -9,10 +8,12 @@ import java.util.ArrayList;
 
 public class Autenticacao {
     private ArrayList<Pessoa> usuarios; // Lista de usuários registrados
+    private Pessoa usuarioLogado;
 
     public Autenticacao() {
         // Inicializa a lista de usuários
         this.usuarios = new ArrayList<Pessoa>();
+        this.usuarioLogado = null;
     }
 
     //Verifica se o email já não é utilizado no sistema
@@ -37,13 +38,11 @@ public class Autenticacao {
     public boolean cadastrarCliente(String nome, String email, String senha, String telefone) {
         Cliente cliente = new Cliente(nome, email, senha, telefone);
         return adicionarUsuario(cliente);
-
     }
 
     public boolean cadastrarBarbeiro(String nome, String email, String senha, String telefone) {
         Barbeiro barbeiro = new Barbeiro(nome, email, senha, telefone);
         return adicionarUsuario(barbeiro);
-
     }
 
     public void atualizarCliente(Cliente cliente) {
@@ -55,11 +54,10 @@ public class Autenticacao {
     }
 
     public ArrayList<Cliente> getClientes() {
-        ArrayList<Pessoa> usuarios = getUsuarios();
         ArrayList<Cliente> clientes = new ArrayList<>();
 
-        for(Pessoa pessoa : usuarios){
-            if(pessoa instanceof Cliente){
+        for (Pessoa pessoa : usuarios) {
+            if (pessoa instanceof Cliente) {
                 clientes.add((Cliente) pessoa);
             }
         }
@@ -68,11 +66,10 @@ public class Autenticacao {
     }
 
     public ArrayList<Barbeiro> getBarbeiros() {
-        ArrayList<Pessoa> usuarios = getUsuarios();
         ArrayList<Barbeiro> barbeiros = new ArrayList<>();
 
         for (Pessoa pessoa : usuarios) {
-            if(pessoa instanceof Barbeiro){
+            if (pessoa instanceof Barbeiro) {
                 barbeiros.add((Barbeiro) pessoa);
             }
         }
@@ -80,9 +77,10 @@ public class Autenticacao {
         return barbeiros;
     }
 
-    public boolean verificarLogin(String email, String senha){
-        for (Pessoa pessoa : getUsuarios() ){
-            if(pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)){
+    public boolean verificarLogin(String email, String senha) {
+        for (Pessoa pessoa : usuarios) {
+            if (pessoa.getEmail().equals(email) && pessoa.getSenha().equals(senha)) {
+                usuarioLogado = pessoa;
                 return true;
             }
         }
@@ -90,7 +88,7 @@ public class Autenticacao {
     }
 
     public boolean verificarTipoUsuarioCliente(String email) {
-        for (Pessoa pessoa : getUsuarios()) {
+        for (Pessoa pessoa : usuarios) {
             if (pessoa.getEmail().equals(email)) {
                 if (pessoa instanceof Barbeiro) {
                     System.out.println("Usuário é um Barbeiro");
@@ -99,14 +97,19 @@ public class Autenticacao {
                     System.out.println("Usuário é um Cliente");
                     return true;
                 }
-
             }
         }
-
         return false;
     }
 
-    private ArrayList<Pessoa> getUsuarios(){
-        return usuarios;
+    public Pessoa getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public String getEmailUsuarioLogado() {
+        if (usuarioLogado != null) {
+            return usuarioLogado.getEmail();
+        }
+        return null;
     }
 }
