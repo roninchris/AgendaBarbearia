@@ -29,6 +29,7 @@ public class BarbeiroLogadoView {
 
         panel.add(visualizarHorarios);
         panel.add(editarDados);
+        panel.add(logout);
 
         visualizarHorarios.addActionListener(new ActionListener() {
             @Override
