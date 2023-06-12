@@ -76,7 +76,9 @@ public class CadastroBarbeiroView {
         panel.add(cancelarButton);
     }
 
+
     public JPanel getPanel() {
         return panel;
     }
+
 }
