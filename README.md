@@ -20,3 +20,6 @@ Aqui estão algumas das funcionalidades oferecidas pela aplicação da Barbearia
 ## Tecnologias utilizadas
 Java
 Biblioteca Swing do Java
+
+## Trello
+https://trello.com/b/Fcvk4kKU/agendabarbearia
