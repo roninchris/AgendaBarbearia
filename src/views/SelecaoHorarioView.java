@@ -49,11 +49,13 @@ public class SelecaoHorarioView {
                 barbeiro.getAgenda().getHorario(horarioSelecionado).setDisponibilidade(false);
 
 
+
                 // Atribui horário com o cliente
                 cliente.addAgendamento(barbeiro.getAgenda().getHorario(horarioSelecionado));
+                barbeiro.getAgenda().getHorario(horarioSelecionado).setCliente(cliente);
 
                 //Mostra aviso na tela
-                JOptionPane.showMessageDialog(panel, "Horário com " + barbeiro.getNome() + "agendado com sucesso!");
+                JOptionPane.showMessageDialog(panel, "Horário com " + barbeiro.getNome() + " agendado com sucesso!");
 
                 //Redireciona o usuário para a tela do cliente novamente
                 frame.setContentPane(new ClienteLogadoView(autenticacao, frame, cliente.getEmail()).getPanel());

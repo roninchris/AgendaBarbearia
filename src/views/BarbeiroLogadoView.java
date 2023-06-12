@@ -23,16 +23,19 @@ public class BarbeiroLogadoView {
         panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
 
-        JButton agendarHorario = new JButton("Agendar Horário");
+        JButton visualizarHorarios = new JButton("Visualizar Horários");
         JButton editarDados = new JButton("Editar dados");
+        JButton logout = new JButton("LogOut");
 
-        panel.add(agendarHorario);
+        panel.add(visualizarHorarios);
         panel.add(editarDados);
 
-        agendarHorario.addActionListener(new ActionListener() {
+        visualizarHorarios.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Vai para tela de agendamento de horários
+                frame.setContentPane(new BarbeiroVisualizarHorariosView(autenticacao, frame, barbeiro).getPanel());
+                frame.revalidate();
+                frame.repaint();
             }
         });
 
@@ -40,6 +43,16 @@ public class BarbeiroLogadoView {
             @Override
             public void actionPerformed(ActionEvent e) {
                 frame.setContentPane(new EdicaoBarbeiroView(autenticacao, frame, barbeiro).getPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        logout.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(panel, "LogOut feito com sucesso!");
+                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
                 frame.revalidate();
                 frame.repaint();
             }
