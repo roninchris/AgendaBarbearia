@@ -60,9 +60,8 @@ public class Agenda {
         return horarios;
     }
 
-    public void setHorarios(ArrayList<Horario> horarios) {
-        this.horarios = horarios;
+    public void addHorario(Horario horario) {
+        horarios.add(horario);
     }
 
-    // getters e setters
 }

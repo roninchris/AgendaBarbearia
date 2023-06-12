@@ -13,7 +13,4 @@ public class Barbeiro extends Pessoa{
         return agenda;
     }
 
-    public void setAgenda(Agenda agenda) {
-        this.agenda = agenda;
-    }
 }
