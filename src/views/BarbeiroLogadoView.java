@@ -13,10 +13,12 @@ public class BarbeiroLogadoView {
     private Autenticacao autenticacao;
     private JFrame frame;
     private JPanel panel;
+    private Barbeiro barbeiro;
 
     public BarbeiroLogadoView(Autenticacao autenticacao, JFrame frame, String email) {
         this.autenticacao = autenticacao;
         this.frame = frame;
+        this.barbeiro = autenticacao.getBarbeiro(autenticacao, email);
 
         panel = new JPanel();
         panel.setLayout(new GridLayout(2, 1));
@@ -37,7 +39,7 @@ public class BarbeiroLogadoView {
         editarDados.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frame.setContentPane(new EdicaoBarbeiroView(autenticacao, (Barbeiro) autenticacao.getUsuarioLogado(), frame).getPanel());
+                frame.setContentPane(new EdicaoBarbeiroView(autenticacao, frame, barbeiro).getPanel());
                 frame.revalidate();
                 frame.repaint();
             }

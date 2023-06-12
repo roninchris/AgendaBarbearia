@@ -20,7 +20,7 @@ public class EdicaoBarbeiroView {
     private JTextField senhaTextField;
     private JTextField telefoneTextField;
 
-    public EdicaoBarbeiroView(Autenticacao autenticacao, Barbeiro barbeiro, JFrame frame) {
+    public EdicaoBarbeiroView(Autenticacao autenticacao, JFrame frame, Barbeiro barbeiro) {
         this.autenticacao = autenticacao;
         this.barbeiro = barbeiro;
         this.frame = frame;
@@ -83,7 +83,7 @@ public class EdicaoBarbeiroView {
     }
 
     private void voltarParaBarbeiroLogado() {
-        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame).getPanel());
+        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame, barbeiro.getEmail()).getPanel());
         frame.revalidate();
         frame.repaint();
     }

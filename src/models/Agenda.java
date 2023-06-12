@@ -3,20 +3,22 @@ package models;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 
 public class Agenda {
     private Barbeiro barbeiro;
-    private ArrayList<Horario> horarios;
+    private ArrayList<Horario> horariosDisponiveis;
+    private ArrayList<Horario> horariosAgendados = new ArrayList<>();
 
     public Agenda(Barbeiro barbeiro) {
         this.barbeiro = barbeiro;
-        this.horarios = criarHorarios();
+        this.horariosDisponiveis = criarHorarios();
     }
 
     private ArrayList<Horario> criarHorarios() {
-        ArrayList<Horario> horarios = new ArrayList<>();
+        ArrayList<Horario> horariosDisponiveis = new ArrayList<>();
 
         // Obtém a data atual
         LocalDate dataAtual = LocalDate.now();
@@ -34,7 +36,7 @@ public class Agenda {
             LocalDateTime dataHora = LocalDateTime.of(dataAtual, horarioInicio);
             while (dataHora.toLocalTime().isBefore(horarioFim)) {
                 Horario horario = new Horario(dataHora, true, barbeiro);
-                horarios.add(horario);
+                horariosDisponiveis.add(horario);
                 dataHora = dataHora.plusHours(1);
             }
         }
@@ -46,22 +48,38 @@ public class Agenda {
             LocalDateTime dataHora = LocalDateTime.of(data, horarioInicio);
             while (dataHora.toLocalTime().isBefore(horarioFim)) {
                 Horario horario = new Horario(dataHora, true, barbeiro);
-                horarios.add(horario);
+                horariosDisponiveis.add(horario);
                 dataHora = dataHora.plusHours(1);
             }
             data = data.plusDays(1);
         }
 
-        return horarios;
+        return horariosDisponiveis;
     }
 
 
     public ArrayList<Horario> getHorarios() {
-        return horarios;
+        return horariosDisponiveis;
     }
 
-    public void addHorario(Horario horario) {
-        horarios.add(horario);
+    public void agendarHorario(Horario horario) {
+        horariosAgendados.add(horario);
     }
 
+    public Horario getHorario(String localDateTime){
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        ArrayList<Horario> horarios = getHorarios();
+
+        for(Horario horario : horarios){
+            if (horario.getDataHora().format(formatter).equals(localDateTime)){
+                return horario;
+            }
+        }
+
+        return null;
+    }
+
+    public ArrayList<Horario> getAgendamentos(){
+        return horariosAgendados;
+    }
 }

@@ -18,7 +18,7 @@ public class EdicaoClienteView {
     private JTextField senhaTextField;
     private JTextField telefoneTextField;
 
-    public EdicaoClienteView(Autenticacao autenticacao, Cliente cliente, JFrame frame) {
+    public EdicaoClienteView(Autenticacao autenticacao, JFrame frame, Cliente cliente) {
         this.autenticacao = autenticacao;
         this.cliente = cliente;
         this.frame = frame;
@@ -81,7 +81,7 @@ public class EdicaoClienteView {
     }
 
     private void voltarParaClienteLogado() {
-        frame.setContentPane(new ClienteLogadoView(autenticacao, frame).getPanel());
+        frame.setContentPane(new ClienteLogadoView(autenticacao, frame, cliente.getEmail()).getPanel());
         frame.revalidate();
         frame.repaint();
     }

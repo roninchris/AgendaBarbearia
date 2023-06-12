@@ -23,7 +23,7 @@ public class App {
 
     private void initializeMenuPanel() {
         menuPanel = new JPanel();
-        menuPanel.setLayout(new GridLayout(4, 1));
+        menuPanel.setLayout(new GridLayout(3, 1));
 
         JButton loginButton = new JButton("Login");
         JButton cadastrarBarbeiroButton = new JButton("Cadastrar Barbeiro");
@@ -50,8 +50,6 @@ public class App {
             }
         });
 
-
-
         menuPanel.add(loginButton);
         menuPanel.add(cadastrarBarbeiroButton);
         menuPanel.add(cadastrarClienteButton);
@@ -66,7 +64,7 @@ public class App {
     public static void main(String[] args) {
         Autenticacao autenticacao = new Autenticacao();
 
-        JFrame frame = new JFrame();
+        JFrame frame = new JFrame("Agenda Barbearia");
         frame.setSize(400, 300);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);

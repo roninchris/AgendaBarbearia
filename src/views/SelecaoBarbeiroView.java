@@ -1,22 +1,26 @@
 package views;
 
 import controllers.Autenticacao;
+import models.Barbeiro;
+import models.Cliente;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AgendamentoBarbeiroView {
+public class SelecaoBarbeiroView {
+    private JFrame frame;
     private JPanel panel;
     private JComboBox<String> barbeiroDropdown;
     private JTextArea agendamentosArea;
-    private JFrame frame;
+    private ArrayList<Barbeiro> barbeiros;
 
-    public AgendamentoBarbeiroView(Autenticacao autenticacao, JFrame frame) {
+    public SelecaoBarbeiroView(Autenticacao autenticacao, JFrame frame, Cliente cliente) {
         this.frame = frame;
+        this.barbeiros = autenticacao.getBarbeiros();
 
         panel = new JPanel();
         panel.setLayout(new GridBagLayout());
@@ -27,17 +31,17 @@ public class AgendamentoBarbeiroView {
         constraints.gridy = 0;
         constraints.insets = new Insets(10, 10, 10, 10);
 
-        JLabel barbeiroLabel = new JLabel("Cliente:");
+        JLabel barbeiroLabel = new JLabel("Selecione seu barbeiro:");
         panel.add(barbeiroLabel, constraints);
 
         constraints.gridy = 1;
         barbeiroDropdown = new JComboBox<>();
 
         // Add os nomes dos barbeiros cadastrados ao dropdown
-        List<String> clientes = getClientesCadastrados();
-        for (String cliente : clientes) {
-            barbeiroDropdown.addItem(cliente);
+        for(Barbeiro barbeiro : barbeiros){
+            barbeiroDropdown.addItem(barbeiro.getEmail());
         }
+
         panel.add(barbeiroDropdown, constraints);
 
         constraints.gridy = 2;
@@ -51,18 +55,22 @@ public class AgendamentoBarbeiroView {
         panel.add(scrollPane, constraints);
 
         constraints.gridy = 4;
-        JButton atualizarButton = new JButton("Atualizar");
-        panel.add(atualizarButton, constraints);
+        JButton selecionarButton = new JButton("Selecionar");
+        panel.add(selecionarButton, constraints);
 
         constraints.gridy = 5;
         JButton voltarButton = new JButton("Voltar");
         panel.add(voltarButton, constraints);
 
-        atualizarButton.addActionListener(new ActionListener() {
+        selecionarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String barbeiroSelecionado = (String) barbeiroDropdown.getSelectedItem();
-                List<String> agendamentos = getAgendamentosBarbeiro(barbeiroSelecionado);
-                atualizarAgendamentos(agendamentos);
+                Barbeiro barbeiro = autenticacao.getBarbeiro(autenticacao, barbeiroSelecionado);
+
+                frame.setContentPane(new SelecaoHorarioView(autenticacao, frame, barbeiro, cliente).getPanel());
+                frame.revalidate();
+                frame.repaint();
+
             }
         });
 

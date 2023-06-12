@@ -21,7 +21,7 @@ public class Horario {
         this.dataHora = dataHora;
     }
 
-    public boolean isDisponibilidade() {
+    public boolean isDisponivel() {
         return disponibilidade;
     }
 
