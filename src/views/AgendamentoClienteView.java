@@ -117,7 +117,7 @@ public class AgendamentoClienteView {
         // aqui puxe os barbeiros, Sid
         List<String> barbeiros = new ArrayList<>();
         // Exemplo de dados fictícios
-        barbeiros.add("Barbeiro Jamalzinho indiano");
+        barbeiros.add("Barbeiro Jamal indiano");
 
         return barbeiros;
     }
