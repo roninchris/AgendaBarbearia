@@ -2,6 +2,8 @@ package views;
 
 import controllers.Autenticacao;
 import models.Barbeiro;
+import models.Cliente;
+import models.Pessoa;
 
 import javax.swing.*;
 import java.awt.*;
@@ -86,6 +88,14 @@ public class EdicaoBarbeiroView {
         frame.repaint();
     }
 
+    private Barbeiro getBarbeiroLogado() {
+        for (Pessoa pessoa : autenticacao.getClientes()) {
+            if (pessoa.getEmail().equals(autenticacao.getEmailUsuarioLogado())) {
+                return (Barbeiro) pessoa;
+            }
+        }
+        return null;
+    }
     public JPanel getPanel() {
         return panel;
     }
