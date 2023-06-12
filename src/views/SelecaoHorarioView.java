@@ -35,9 +35,11 @@ public class SelecaoHorarioView {
         }
 
         JButton agendarHorario = new JButton("Agendar");
+        JButton cancelar = new JButton("Cancelar");
 
         panel.add(selecaoHorario);
         panel.add(agendarHorario);
+        panel.add(cancelar);
 
         agendarHorario.addActionListener(new ActionListener() {
             @Override
@@ -59,6 +61,15 @@ public class SelecaoHorarioView {
 
                 //Redireciona o usuário para a tela do cliente novamente
                 frame.setContentPane(new ClienteLogadoView(autenticacao, frame, cliente.getEmail()).getPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
+
+        cancelar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(new SelecaoBarbeiroView(autenticacao, frame, cliente).getPanel());
                 frame.revalidate();
                 frame.repaint();
             }
