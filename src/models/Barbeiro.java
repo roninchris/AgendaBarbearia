@@ -13,4 +13,13 @@ public class Barbeiro extends Pessoa{
         return agenda;
     }
 
+    @Override
+    public String getNome(){
+        return "Barbeiro " + nome;
+    }
+
+    @Override
+    public void setNome(String nome) {
+        this.nome = "Barbeiro " + nome;
+    }
 }
