@@ -28,4 +28,8 @@ public class Horario {
     public void setDisponibilidade(boolean disponibilidade) {
         this.disponibilidade = disponibilidade;
     }
+
+    public Barbeiro getBarbeiro(){
+        return barbeiro;
+    }
 }
