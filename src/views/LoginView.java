@@ -51,6 +51,15 @@ public class LoginView {
                         frame.repaint();
                     }
 
+                    frame.setContentPane(new AgendamentoClienteView(autenticacao, frame).getPanel());
+                    frame.revalidate();
+                    frame.repaint();
+//
+//                    frame.setContentPane(new AgendamentoBarbeiroView(autenticacao, frame).getPanel());
+//                    frame.revalidate();
+//                    frame.repaint();
+
+
                 }
                 else {
                     JOptionPane.showMessageDialog(panel, "Email ou senha incorretos!");
