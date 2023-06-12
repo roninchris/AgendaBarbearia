@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class CadastroClienteView {
     private JPanel panel;
@@ -34,6 +37,7 @@ public class CadastroClienteView {
 
         JButton cadastrarButton = new JButton("Cadastrar");
         JButton cancelarButton = new JButton("Cancelar");
+
 
         cadastrarButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -99,4 +103,5 @@ public class CadastroClienteView {
             super(mensagem);
         }
     }
+
 }

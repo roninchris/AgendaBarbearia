@@ -74,32 +74,15 @@ public class SelecaoBarbeiroView {
             }
         });
 
-        //cria o botao de voltar
-//        JButton voltarButton = new JButton("Voltar");
-//        constraints.gridy = 6;
-//        panel.add(voltarButton, constraints);
-//        voltarButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                frame.setContentPane(new SelecaoUsuarioView(frame).getPanel());
-//                frame.revalidate();
-//                frame.repaint();
-//            }
-//        });
+        voltarButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                frame.setContentPane(new ClienteLogadoView(autenticacao, frame, cliente.getEmail()).getPanel());
+                frame.revalidate();
+                frame.repaint();
+            }
+        });
 
-        //cria o botao de logout
 
-//        JButton logoutButton = new JButton("Logout");
-//        constraints.gridy = 6;
-//        panel.add(logoutButton, constraints);
-//
-//        logoutButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                autenticacao.logout();
-//                frame.setContentPane(new App(autenticacao, frame).getMenuPanel());
-//                frame.revalidate();
-//                frame.repaint();
-//            }
-//        });
     }
 
     public JPanel getPanel() {
