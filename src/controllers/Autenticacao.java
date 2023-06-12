@@ -109,4 +109,24 @@ public class Autenticacao {
     private ArrayList<Pessoa> getUsuarios(){
         return usuarios;
     }
+
+    public Cliente getCliente(Autenticacao autenticacao, String email){
+        for(Cliente cliente : getClientes()) {
+            if(cliente.getEmail().equals(email)) {
+                return cliente;
+            }
+        }
+
+        return null;
+    }
+
+    public Barbeiro getBarbeiro(Autenticacao autenticacao, String email){
+        for(Barbeiro barbeiro : getBarbeiros()) {
+            if(barbeiro.getEmail().equals(email)) {
+                return barbeiro;
+            }
+        }
+
+        return null;
+    }
 }

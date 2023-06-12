@@ -10,7 +10,7 @@ public class BarbeiroLogadoView {
     private JFrame frame;
     private JPanel panel;
 
-    public BarbeiroLogadoView(Autenticacao autenticacao, JFrame frame) {
+    public BarbeiroLogadoView(Autenticacao autenticacao, JFrame frame, String email) {
         this.autenticacao = autenticacao;
         this.frame = frame;
 

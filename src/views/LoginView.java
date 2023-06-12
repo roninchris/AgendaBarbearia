@@ -40,13 +40,13 @@ public class LoginView {
                 if(autenticacao.verificarLogin(emailField.getText(), new String(passwordField.getPassword()))){
                     JOptionPane.showMessageDialog(panel, "Login realizado com sucesso!");
                     if(autenticacao.verificarTipoUsuarioCliente(emailField.getText())){
-                        frame.setContentPane(new ClienteLogadoView(autenticacao, frame).getPanel());
+                        frame.setContentPane(new ClienteLogadoView(autenticacao, frame, emailField.getText()).getPanel());
                         frame.revalidate();
                         frame.repaint();
                     }
 
                     else {
-                        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame).getPanel());
+                        frame.setContentPane(new BarbeiroLogadoView(autenticacao, frame, emailField.getText()).getPanel());
                         frame.revalidate();
                         frame.repaint();
                     }

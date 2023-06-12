@@ -16,4 +16,6 @@ public class Cliente extends Pessoa {
     public ArrayList<Horario> getHorarios(){
         return horarios;
     }
+
+
 }
