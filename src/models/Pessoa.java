@@ -1,7 +1,7 @@
 package models;
 
 public class Pessoa {
-    private String  nome;
+    protected String  nome;
     private String email;
     private String senha;
     private String telefone;
