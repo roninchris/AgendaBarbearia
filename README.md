@@ -1,5 +1,4 @@
 
-![image](https://github.com/roninchris/AgendaBarbearia/assets/102271783/5607e018-aba5-4c1b-bbe5-85841fac3345)
 
 # Barbearia da Lux
 
